@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+	window.onload = function(){
+		var test1 = new Vue({
+			el: '#test1',
+			data : {
+				bgcolor: 'yellow',
+				color: 'blue',
+				styleValue : {
+					fontSize : '50px',
+					color: 'yellow',
+					backgroundColor: 'red'
+				}
+			}
+		})
+	}
+</script>
+</head>
+<body>
+	<div id = "test1">
+		<h3 :style='{backgroundColor:bgcolor, color:color, marginTop: 12}'>gggg</h3>
+		<h3 :style='styleValue'>dddd</h3>
+		
+	</div>
+</body>
+</html>

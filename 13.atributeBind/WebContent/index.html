@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+	window.onload = function(){
+		var vm1 = new Vue({
+			el: '#test1',
+			data : {
+				str1 : '문자열23입니다.',
+				link : 'https://kr.vuejs.org',
+				img : 'sample.png',
+				imageWidth : 120
+			},
+			methosd : {
+				setImageWidth : function(){
+					this.imageWidth = '400'
+				},
+				resetImageWidth : function(){
+					this.imageWidth = '200'
+				}
+			}
+		})
+	}// text 구역에 data 넣을때는 그냥 {{}} 쓰면되지만 속성값에 쓰려면 bind 써야함
+	
+</script>
+</head>
+<body>
+	<div id = "test1">
+		<h3>{{str1}}</h3>
+		<!-- <a href='{{link}}'>link1</a> -->
+		<a v-bind:href='link'>link2</a>
+		<!-- v-bind 생략하고 :href 로 사용가능 -->
+		<img :src="img" :width="imageWidth" v-on:mouseover='setImageWidth' v-on:mouseleave='resetImageWidth'/>
+	</div>
+</body>
+</html>
