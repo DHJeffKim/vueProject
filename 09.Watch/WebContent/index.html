@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+	window.onload = function(){
+		var vm1 = new Vue({
+			el : '#test1',
+			data : {
+				a1 : '',
+				a2 : ''
+			},
+			watch : {
+				//변수 a1을 감시하는 watch 설정
+				a1: function(newVal, oldVal){
+					console.log('a1의 새로운 값 : '+ newVal + '이전 값 : '+ oldVal)
+				},
+				//변수 a2을 감시하는 watch 설정
+				a2: function(newVal, oldVal){
+					console.log('a2의 새로운 값 : '+ newVal + '이전 값 : '+ oldVal)
+				},
+			}
+		
+		})
+	}
+</script>
+</head>
+<body>
+	<div id="test1">
+		input1 : <input type="text" v-model='a1' /><br/><!-- v-model 에 설정된 data값에 input 값을 넣는다  -->
+		input2 : <input type="text" v-model='a2' /><br/>
+		<h3>{{a1}}</h3>
+		<h3>{{a2}}</h3>
+	</div>
+</body>
+</html>

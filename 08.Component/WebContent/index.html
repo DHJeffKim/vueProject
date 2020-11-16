@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+	Vue.component('component1', {
+		template : '<h3>첫번째 h3태그 입니다.</h3>'
+	}) // 템플릿이 2개 이상의 태그로 이뤄져있을 경우 이들을 둘러싸는 1개의 태그가 있어야한다.
+	
+	Vue.component('component2', {
+		template : '<h3>두번째 컴포넌트</h3>'
+	})
+	
+	Vue.component('data_component', {
+		template : '<div>'+
+					'<h4>데이터를 사용하는 템플릿</h4>'+
+					'<h4>{{a1}}</h4>'+
+					'<h4>{{a2}}</h4>'+
+					'<h4>{{test_method1()}}</h4>'+
+				'</div>',
+		data : function(){ //템플릿 안에 들어가는 data변수는 결과 값을 반환 해주는 함수 형태로 만들어야함 !!
+			rtn_obj ={
+				a1 : '문자열1',
+				a2 : '문자열2'
+			}
+			return rtn_obj
+		},
+		methods : {
+			test_method1 : function(){
+				return '메서드 호출'
+			}
+		}
+	})
+	
+	window.onload = function(){
+		var test1 = new Vue({
+			el : '#test1'
+		})
+		var test2 = new Vue({
+			el : '#test2'
+		})
+		
+		var test3 = new Vue({
+			el : '#test3',
+			components : { // 해당 el에서만 사용 가능한 컴포넌트 정의 (다른 객체에서는 사용할수 없다.)
+				'component3' : {
+					template : '<h3>#test3에서만 사용 가능한 컴포넌트</h3>'	
+				},
+				'component4' : {
+					template : '<h3>#test3에서만 사용 가능한 컴포넌트2</h3>'	
+				}
+			}
+		})
+		
+		var test4 = new Vue({
+			el : '#test4',
+		})
+		var a1 = 0;
+		var test5 = new Vue({ // 외부 컴포넌트를 내부에 세팅해서 사용
+			el : '#test5',
+			components : {
+				'component5' :{ // 바로 내부에 컴포넌트 선언해서 사용하는 방식
+					template : '<h3>6번째</h3>'
+				},
+				'component6' :{
+					template : '<h3>7번째</h3>'
+				}
+			},/* 
+			data : {
+				view1 : 'component5',
+				view2 : 'component6'
+			} */
+			data : function(){
+				if(a1 === 0){
+					return{ 
+						view1 : 'component5',
+						view2 : 'component1'
+					}
+				}
+				else{
+					return {
+						view1 : 'component6',
+						view2 : 'component2'
+					}
+				}
+			}
+		})
+	}
+</script>
+</head>
+<body>
+	<div id="test1">
+		<component1></component1>
+	</div>
+	<hr>
+	<div id="test2"> <!-- 컴포넌트의 재사용이 가능하다 -->
+		<component1></component1>
+		<component2></component2>
+	</div>
+	<hr>
+	<div id="test3">
+		<component3></component3>
+		<component4></component4>
+		<component1></component1> <!-- 외부에서 만든 컴포넌트 또한 사용가능 -->
+		<component2></component2>	
+	</div>
+	<hr>
+	<div id="test4">
+		<data_component></data_component>
+	</div>
+	<hr>
+	<div id="test5">
+		<component5></component5>
+		<component6></component6> 
+		<component v-bind:is="view1"></component>
+		<component v-bind:is="view2"></component>
+	</div>
+</body>
+</html>
